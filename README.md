@@ -1,6 +1,6 @@
 # Scenario_Interpretation
 
-To generate visualization, run 
+To recreate experiment results, run 
 ```
 python run_sim.py
 ```
