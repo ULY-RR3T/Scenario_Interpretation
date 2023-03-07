@@ -104,7 +104,7 @@ def generate_epsilon_distribution(figsize = (6, 5)):
 def extract_data(df, date_str, scenario_name, num_weeks, target_type, inc_cum):
     """
 
-    extract_data(int,int) => pandas.Dataframe
+    extract_data(int,int) => andas.Dataframep
 
     Keyword arguments:
     scenario_id -> 0 if we are using the first scenario, 1 if we are looking to extract the second scenario
@@ -548,12 +548,13 @@ def result3():
 
 
 if __name__ == "__main__":
-    result2()
-    generate_epsilon_distribution()
+    # download_data(9)
+    # download_data(11)
+    # result2()
+    # generate_epsilon_distribution()
     names = ['USC_SIkJalpha', 'Ensemble', 'Ensemble_LOP', 'Ensemble_LOP_untrimmed', 'JHUAPL-Bucky', 'MOBS_NEU-GLEAM_COVID']
     date_str = "-2021-09-14"
     date_obj = datetime.strptime(date_str[1:],'%Y-%m-%d')
-
     curr_model = 'Ensemble'
     currel = 0.1
     curreu = 0.1
@@ -578,6 +579,8 @@ if __name__ == "__main__":
         scenarioX = extract_data(df=df, date_str=date_str, scenario_name=scenarios[0], num_weeks=12, target_type='case', inc_cum='cum')
         scenarioY = extract_data(df=df, date_str=date_str, scenario_name=scenarios[1], num_weeks=12, target_type='case', inc_cum='cum')
         curr_el, curr_eu = epsilon(scenarioX, scenarioY, quantiles, 4, epsilon_method="Estimate")
+        print(curr_el,curr_eu)
+        continue
         curr_varel, curr_vareu = epsilon(scenarioX, scenarioY, quantiles, 4, epsilon_method="Approximate")
         e_l.append(curr_el)
         e_u.append(curr_eu)
