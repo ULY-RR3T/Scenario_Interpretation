@@ -1,21 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-iteration_N = 10000
 
-def argmax_true(list):
-    for i in reversed(range(len(list))):
-        if list[i] == True:
-            return i
-    return len(list) - 1
-
-def argmin_true(list):
-    for i in range(len(list)):
-        if list[i] == True:
+def last_max(list):
+    for i in range(len(list))[::-1]:
+        if list[i]:
             return i
     return 0
 
-def plot_result(result,q,save_fig=False):
+def first_min(list):
+    for i in range(len(list)):
+        if list[i]:
+            return i
+    return len(list) - 1
+
+
+def plot_result(result,q,save_fig=False,plot_meta=None):
     wks = list(range(1,result.shape[0] + 1))
     plt.figure()
     plt.plot(wks, result[:, 1], label='$Z^L median$', linewidth=2)
@@ -26,4 +26,7 @@ def plot_result(result,q,save_fig=False):
     plt.legend()
     plt.ylabel("DFRV")
     plt.xlabel("Weeks Since Prediction")
+    if plot_meta:
+        plt.title(f"{plot_meta['model']} for round {plot_meta['round']}, "
+                  f"epsilon = ({plot_meta['e_l']},{plot_meta['e_u']})")
     plt.show()

@@ -153,14 +153,14 @@ def epsilon_distribution(QX_all, QY_all, q, t_app, epsilon_method="ESTIMATE"):
 
                 q_i = q[i]
                 # argmax_{j:j<=i}
-                alpha = argmax_true([k & (j <= (i - 1)) for j, k in enumerate(QU >= QL_i_prev)])
+                alpha = last_max([k & (j <= (i - 1)) for j, k in enumerate(QU >= QL_i_prev)])
                 # print(QX >= QY_i_prev)
-                beta = argmin_true([k & (j >= (i + 1)) for j, k in enumerate(QL >= QU_i_next)])
+                beta = first_min([k & (j >= (i + 1)) for j, k in enumerate(QL >= QU_i_next)])
 
                 q_alpha = q[alpha]
                 q_beta = q[beta]
                 e_l_curr.append(q_i - q_alpha)
-                e_u_curr.append(q_i - q_beta)
+                e_u_curr.append(q_beta - q_i)
 
             e_l.append(round(max(e_l_curr),3))
             e_u.append(round(-min(e_u_curr),3))
@@ -263,9 +263,9 @@ def estimate_epsilon(QX_all, QY_all, t_app, q):
 
             q_i = q[i]
             #argmax_{j:j<=i}
-            alpha = argmax_true([k & (j <= (i - 1)) for j,k in enumerate(QU >= QL_i_prev)])
+            alpha = last_max([k & (j <= (i - 1)) for j,k in enumerate(QU >= QL_i_prev)])
             # print(QX >= QY_i_prev)
-            beta = argmin_true([k & (j >= (i + 1)) for j,k in enumerate(QL >= QU_i_next)])
+            beta = first_min([k & (j >= (i + 1)) for j,k in enumerate(QL >= QU_i_next)])
 
             q_alpha = q[alpha]
             q_beta = q[beta]
@@ -330,8 +330,8 @@ def DFRV_epsilon_exact(QX_all, QY_all, q, e_l, e_u, alpha):
         QY = QY_all[t]
         for i in range(iteration_N):
             i_N = np.random.uniform(0, 1)
-            q_l = argmax_true(q <= (i_N - e_l))
-            q_u = argmin_true(q >= (i_N  + e_u))
+            q_l = last_max(q <= (i_N - e_l))
+            q_u = first_min(q >= (i_N + e_u))
             Z_u.append(QX[q_u] - QY[q_l])
             Z_l.append(QX[q_l]-QY[q_u])
         Z_u = np.array(Z_u)
