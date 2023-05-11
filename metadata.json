@@ -1,0 +1,26 @@
+{
+  "round_9": {
+    "date_str": "2021-09-14",
+    "t_app": 4,
+    "scenarios": ["C-A","D-B"],
+    "num_weeks": 12
+  },
+  "round_11":{
+    "date_str": "2021-12-21",
+    "t_app": 4,
+    "scenarios": ["B-A","D-C"],
+    "num_weeks": 12
+  },
+  "round_14":{
+    "date_str": "2022-05-09",
+    "t_app": 15,
+    "scenarios": ["C-A","D-B"],
+    "num_weeks": 36
+  },
+    "round_15":{
+    "date_str": "2022-07-19",
+    "t_app": 7,
+    "scenarios": ["C-A","D-B"],
+    "num_weeks": 36
+  }
+}
